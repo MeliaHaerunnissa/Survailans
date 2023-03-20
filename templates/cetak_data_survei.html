@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Cetak Data Survei
+    </title>
+</head>
+<body>
+    <style type="text/css">
+ body{
+ font-family: sans-serif;
+ }
+ table{
+ margin: 15px auto;
+ border-collapse: collapse;
+ }
+ table th,
+ table td{
+ border: 1px solid #3c3c3c;
+ padding: 6px 3px;
+
+ }
+ a{
+ background: blue;
+ color: #fff;
+ padding: 8px 10px;
+ text-decoration: none;
+ border-radius: 2px;
+ }
+        .tengah{
+        text-align: center;
+    }
+ </style>
+    <div class="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h1 text-center" style="text-align: center;">Laporan Data Survei</h1>
+    </div>
+    <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Tanggal Survei</th>
+                    <th scope="col">Nama Jumantik</th>
+                    <th scope="col">Nomor Kartu Keluarga</th>
+                    <th scope="col">Nama Kepala Keluarga</th>
+                    <th scope="col">No Telp</th>
+                    <th scope="col">Dusun</th>
+                    <th scope="col">Desa</th>
+                    <th scope="col">Kecamatan</th>
+                    <th scope="col">Bak Mandi</th>
+                    <th scope="col">Drum</th>
+                    <th scope="col">Kaleng Bekas</th>
+                    <th scope="col">Tempayan</th>
+                    <th scope="col">Lain Lain</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Jumlah TPA</th>
+                </thead>
+                {% for baris in container %}
+                <tbody>
+                <tr>
+                    <td>{{ baris[1] }}</td>
+                    <td>{{ baris[2] }}</td>
+                    <td>{{ baris[3] }}</td>
+                    <td>{{ baris[4] }}</td>
+                    <td>{{ baris[5] }}</td>
+                    <td>{{ baris[6] }}</td>
+                    <td>{{ baris[7] }}</td>
+                    <td>{{ baris[8] }}</td>
+                    <td>{{ baris[9] }}</td>
+                    <td>{{ baris[10] }}</td>
+                    <td>{{ baris[11] }}</td>
+                    <td>{{ baris[12] }}</td>
+                    <td>{{ baris[13] }}</td>
+                    <td>{{ baris[14] }}</td>
+                    <td>{{ baris[15] }}</td>
+                </td>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+</html>

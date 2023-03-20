@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='Surveilans/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!--external css-->
+  <link href="{{ url_for('static', filename='Surveilans/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Surveilans/css/zabuto_calendar.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Surveilans/lib/gritter/css/jquery.gritter.css') }}" />
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='Surveilans/css/style.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='Surveilans/css/style-responsive.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='Surveilans/lib/chart-master/Chart.js') }}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+  <script>
+    $(document).ready(function () {
+      $('.dattabel').DataTable();
+      $('.datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        clearBtn: true,
+        autoclose: true,
+        todayHighlight: true
+      });
+      $('.select2').select2();    
+    });
+  </script>
+  <!-- =======================================================
+    Template Name: Surveilans
+    Template URL: https://templatemag.com/Surveilans-bootstrap-admin-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+    <title>SURVEILANS</title>
+</head>
+<body>
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="{{ url_for('index') }}" class="logo"><b>SURVEILANS</b></a>
+      <!--logo end-->
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='Surveilans/img/unjani.jpg') }}" class="img-circle" width="90"></a></p>
+          <h5 class="centered">SURVEILANS</h5>
+          <li class="mt">
+            <a href="{{ url_for('grafik') }}">
+              <!-- <i class="fa fa-dashboard"></i> -->
+              <span>DASHBOARD</span>
+              </a>
+          </li>
+          <li class="sub-menu">
+              <a href="{{ url_for('datapasien') }}">
+                <!-- <i class="fa fa-desktop"></i> -->
+                <span>DATA PASIEN DBD</span>
+                </a>
+            </li>
+          <li class="sub-menu">
+            <a href="{{ url_for('datasurveifaskes') }}">
+              <!-- <i class="fa fa-desktop"></i> -->
+              <span>DATA SURVEI</span>
+              </a>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+				<div class="row mt">
+						<div class="col-lg-12">
+						  <h4><i class="fa fa-angle-right"></i> Masukkan Data Pasien DBD</h4>
+						  <div class="form-panel">
+							<div class=" form">
+							  <form class="cmxform form-horizontal style-form" id="commentForm" method="post" enctype="multipart/form-data" action="{{ url_for('insert_data_pasien') }}">
+
+								<div class="form-group ">
+                  <input type="hidden" name="id_pasien">
+								  <label for="no_ktp" class="control-label col-lg-2">No KTP</label>
+								  <div class="col-lg-10">
+									<input class="form-control " id="no_ktp" for="no_ktp" type="text" name="no_ktp" placeholder="Masukan Nomor KTP" required/>
+								  </div>
+								</div>
+								<div class="form-group ">
+									<label for="nama_pasien" class="control-label col-lg-2">Nama Pasien</label>
+									<div class="col-lg-10">
+									  <input class="form-control " id="nama_pasien" type="text" name="nama_pasien" placeholder="Masukan Nama Pasien" required/>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="dusun" class="control-label col-lg-2">Alamat</label>
+									<div class="col-lg-10">
+									  <textarea type="dusun" name="dusun" class="md-textarea form-control" id="dusun" placeholder="Dusun, Rt, Rw" rows="2" required></textarea>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="desa" class="control-label col-lg-2">Desa</label>
+									<div class="col-lg-10">
+									<select type="id_desa" name="id_desa" class="form-control" id="id_desa" required>
+										<option value=""></option>
+										<option value="1">Bageng</option>
+										<option value="2">Bermi</option>
+										<option value="3">Gembong</option>
+										<option value="4">Kedungbulus</option>
+										<option value="5">Ketanggan</option>
+										<option value="6">Klakah Kasihan</option>
+										<option value="7">Plukaran</option>
+										<option value="8">Pohgading</option>
+										<option value="9">Semirejo</option>
+										<option value="10">Sitiluhur</option>
+										<option value="11">Wonosekar</option>
+									</select>
+								</div>
+								</div>
+								<div class="form-group ">
+									<label for="id_kecamatan" class="control-label col-lg-2">Kecamatan</label>
+									<div class="col-lg-10">
+									<select type="id_kecamatan" name="id_kecamatan" class="form-control" id="id_kecamatan" required>
+										<option value=""></option>
+										<option value="1">Gembong</option>
+										<option value="2">Juwana</option>
+										<option value="3">Kayen</option>
+										<option value="4">Pati</option>
+										<option value="5">Margoyoso</option>
+										<option value="6">Margorejo</option>
+									</select>
+								</div>
+								</div>
+								<div class="form-group ">
+									<label for="id_kabupaten" class="control-label col-lg-2">Kabupaten</label>
+									<div class="col-lg-10">
+									  <select type="id_kabupaten" name="id_kabupaten" class="form-control" id="id_kabupaten" required>
+										<option value=""></option>
+										<option value="1">Pati</option>
+										<option value="2">Kudus</option>
+										<option value="3">Wonosobo</option>
+										<option value="4">Rembang</option>
+									</select>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="tempat_lahir" class="control-label col-lg-2">Tempat Lahir</label>
+									<div class="col-lg-10">
+									  <textarea type="tempat_lahir" name="tempat_lahir" class="md-textarea form-control" id="tempat_lahir" placeholder="Tempat Lahir" rows="1" required></textarea>
+									</div>
+								</div>
+								<div class="form-group ">
+								  <label for="tanggal_lahir" class="control-label col-lg-2">Tanggal Lahir</label>
+								  <div class="col-lg-10">
+									<input class="form-control " id="tanggal_lahir" for="tanggal_lahir" type="date" name="tanggal_lahir" placeholder="" required />
+								  </div>
+								</div>
+								<div class="form-group ">
+									<label for="jenis_kelamin" class="control-label col-lg-2">Jenis Kelamin</label>
+						    		<div class="form-check">
+						    			<input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="Laki-laki" checked>Laki-laki
+						    			</label>
+						    		</div>
+						    		<div class="form-check">
+						    			<input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="Perempuan">
+						    			<label class="form-check-label" for="jenis_kelamin">Perempuan
+						    			</label>
+						    		</div>
+						    	</div>
+						    	<div class="form-group ">
+									<label for="pekerjaan" class="control-label col-lg-2">Pekerjaan</label>
+									<div class="col-lg-10">
+										<select type="pekerjaan" name="pekerjaan" class="form-control" id="pekerjaan" placeholder="Pekerjaan" required>
+										<option value=""> </option>
+										<option value="pelajar">Pelajar</option>
+		        						<option value="mahasiswa">Mahasiswa</option>
+		        						<option value="guru">Guru</option>
+		        						<option value="guru">Tenaga Pengajar</option>
+		        						<option value="pedagang">Pedagang</option>
+		        						<option value="petani">Petani</option>
+		        						<option value="peternak">Peternak</option>
+		        						</select>
+		        					</div>
+		        				</div>
+								<div class="form-group">
+								  <div class="col-lg-offset-2 col-lg-10">
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Save</button>
+					                  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					                    <div class="modal-dialog" role="document">
+					                      <div class="modal-content">
+					                        <div class="modal-header">
+					                          <h5 class="modal-title" id="exampleModalLongTitle">Data Disimpan</h5>
+					                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					                            <span aria-hidden="true">&times;</span>
+					                          </button>
+					                        </div>
+					                        <div class="modal-body">Data Berhasil Disimpan
+					                        </div>
+					                        <div class="modal-footer">
+					                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					                          <button type="submit" class="btn btn-primary">Oke</button>
+					                        </div>
+					                      </div>
+					                    </div>
+					                  </div>
+							  </form>
+							</div>
+						  </div>
+						  <!-- /form-panel -->
+						</div>
+						<!-- /col-lg-12 -->
+					  </div>			  
+        </section>
+    </section>
+    <!--main content end-->
+  </section>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="{{ url_for('static', filename='Surveilans/lib/jquery/jquery.min.js') }}"></script>
+
+  <script src="{{ url_for('static', filename='Surveilans/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script class="include" type="text/javascript" src="{{ url_for('static', filename='Surveilans/lib/jquery.dcjqaccordion.2.7.js') }}"></script>
+  <script src="{{ url_for('static', filename='Surveilans/lib/jquery.scrollTo.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='Surveilans/lib/jquery.nicescroll.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='Surveilans/lib/jquery.sparkline.js') }}"></script>
+  <!--common script for all pages-->
+  <script src="{{ url_for('static', filename='Surveilans/lib/common-scripts.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='Surveilans/lib/gritter/js/jquery.gritter.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='Surveilans/lib/gritter-conf.js') }}"></script>
+  <!--script for this page-->
+  <script src="{{ url_for('static', filename='Surveilans/lib/sparkline-chart.js') }}"></script>
+  <script src="{{ url_for('static', filename='Surveilans/lib/zabuto_calendar.js') }}"></script>
+  <script type="application/javascript">
+    $(document).ready(function() {
+      $("#date-popover").popover({
+        html: true,
+        trigger: "manual"
+      });
+      $("#date-popover").hide();
+      $("#date-popover").click(function(e) {
+        $(this).hide();
+      });
+
+      $("#my-calendar").zabuto_calendar({
+        action: function() {
+          return myDateFunction(this.id, false);
+        },
+        action_nav: function() {
+          return myNavFunction(this.id);
+        },
+        ajax: {
+          url: "show_data.php?action=1",
+          modal: true
+        },
+        legend: [{
+            type: "text",
+            label: "Special event",
+            badge: "00"
+          },
+          {
+            type: "block",
+            label: "Regular event",
+          }
+        ]
+      });
+    });
+
+    function myNavFunction(id) {
+      $("#date-popover").hide();
+      var nav = $("#" + id).data("navigation");
+      var to = $("#" + id).data("to");
+      console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+    }
+  </script>
+</body>
+</html>

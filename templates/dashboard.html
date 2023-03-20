@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='Surveilans/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='Surveilans/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!--external css-->
+  <link href="{{ url_for('static', filename='Surveilans/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Surveilans/css/zabuto_calendar.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Surveilans/lib/gritter/css/jquery.gritter.css') }}" />
+    <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='Surveilans/css/style.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='Surveilans/css/style-responsive.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='Surveilans/lib/chart-master/Chart.js') }}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+    <title>SURVEILANS</title>
+</head>
+<body>
+	<section id="container">
+		<header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="{{ url_for('index') }}" class="logo"><b>SURVEILANS</b></a>
+      <!--logo end-->
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='Surveilans/img/unjani.jpg') }}" class="img-circle" width="90"></a></p>
+          <h5 class="centered">SURVEILANS</h5>
+          <li class="mt">
+            <a href="{{ url_for('grafik') }}">
+              <!-- <i class="fa fa-dashboard"></i> -->
+              <span>DASHBOARD</span>
+              </a>
+          </li>
+          <li class="sub-menu">
+              <a href="{{ url_for('datapasien') }}">
+                <!-- <i class="fa fa-desktop"></i> -->
+                <span>DATA PASIEN DBD</span>
+                </a>
+            </li>
+          <li class="sub-menu">
+            <a href="{{ url_for('datasurveifaskes') }}">
+              <!-- <i class="fa fa-desktop"></i> -->
+              <span>DATA SURVEI</span>
+              </a>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row mt">
+			  <div class="col-xs-10 col-sm-6 col-md-6">
+			    <div class="card card-style mb-2">
+			        <div class="card-body">
+			            <div class="chart-container" style="position: relative;">
+			                <canvas id="datapasien"></canvas>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<div class="col-xs-10 col-sm-6 col-md-6">
+			    <div class="card card-style mb-2">
+			        <div class="card-body">
+			            <div class="chart-container" style="position: relative;">
+			                <canvas id="datasurvei"></canvas>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<div class="col-xs-10 col-sm-6 col-md-6">
+			    <div class="card card-style mb-2">
+			        <div class="card-body">
+			            <div class="chart-container" style="position: relative;">
+			                <canvas id="alamat"></canvas>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+    <script>
+      let no = JSON.parse({{no | tojson}});
+      let jenis_kelamin = JSON.parse({{jenis_kelamin | tojson}});
+
+     let datapasien_chart = new Chart(datapasien, {
+            type: 'pie',
+            data: {
+            labels: ['laki laki', 'perempuan'],
+                datasets: [{
+                    label: "Data Pasien",
+                    data: no,jenis_kelamin,
+                    backgroundColor: ['#5DA5DA ', '#FAA43A', '#60BD68',
+                        '#B276B2', '#E16851', '#FB8267'],
+
+                    borderWidth: 1,
+                    hoverBorderColor: "black",
+                    hoverBorderWidth: 2,
+                    hoverBackgroundColor: 'rgba(154, 245, 140)',
+                    pointHoverRadius: 5
+                }],
+            },
+            options: {
+                    title: {
+                        display: true,
+                            text: "Data Pasien Berdasarkan Jenis Kelamin",
+                                fontSize: 20,
+                    },
+                    legend: {
+                        position: "right",
+                            labels: {
+                            fontColor: "gray"
+                        },
+                        display: true,
+                    },
+
+                    elements: {
+                        hitRadius: 3,
+                    }
+            }
+    })
+    let tanggal_survei = JSON.parse({{tanggal_survei | tojson}});
+    let status = JSON.parse({{status | tojson}});
+
+     let datasurvei_chart = new Chart(datasurvei, {
+            type: 'pie',
+            data: {
+            labels: status,
+                datasets: [{
+                    label: "Data Survei",
+                    data: tanggal_survei,status,
+                    backgroundColor: ['#5DA5DA ', '#FAA43A', '#60BD68',
+                        '#B276B2', '#E16851', '#FB8267'],
+
+                    borderWidth: 1,
+                    hoverBorderColor: "black",
+                    hoverBorderWidth: 2,
+                    hoverBackgroundColor: 'rgba(154, 245, 140)',
+                    pointHoverRadius: 5
+                }],
+            },
+            options: {
+                    title: {
+                        display: true,
+                            text: "Data Survei Jentik",
+                                fontSize: 20,
+                    },
+                    legend: {
+                        position: "right",
+                            labels: {
+                            fontColor: "gray"
+                        },
+                        display: true,
+                    },
+
+                    elements: {
+                        hitRadius: 3,
+                    }
+            }
+        })
+
+    let tanggal_masuk = JSON.parse({{tanggal_masuk | tojson}});
+    let desa = JSON.parse({{desa | tojson}});
+
+     let alamat_chart = new Chart(alamat, {
+            type: 'pie',
+            data: {
+            labels: desa,
+                datasets: [{
+                    label: "Data Pasien DBD Berdasarkan Desa",
+                    data: tanggal_masuk,desa,
+                    backgroundColor: ['#5DA5DA ', '#FAA43A', '#60BD68',
+                        '#B276B2', '#E16851', '#FB8267'],
+
+                    borderWidth: 1,
+                    hoverBorderColor: "black",
+                    hoverBorderWidth: 2,
+                    hoverBackgroundColor: 'rgba(154, 245, 140)',
+                    pointHoverRadius: 5
+                }],
+            },
+            options: {
+                    title: {
+                        display: true,
+                            text: "Data Pasien Berdasarkan Desa",
+                                fontSize: 20,
+                    },
+                    legend: {
+                        position: "right",
+                            labels: {
+                            fontColor: "gray"
+                        },
+                        display: true,
+                    },
+
+                    elements: {
+                        hitRadius: 3,
+                    }
+            }
+        });
+    </script>
+</body>
+</html>

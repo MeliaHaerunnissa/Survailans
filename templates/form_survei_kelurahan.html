@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='Surveilans/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!--external css-->
+  <link href="{{ url_for('static', filename='Surveilans/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Surveilans/css/zabuto_calendar.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Surveilans/lib/gritter/css/jquery.gritter.css') }}" />
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='Surveilans/css/style.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='Surveilans/css/style-responsive.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='Surveilans/lib/chart-master/Chart.js') }}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+  <script>
+    $(document).ready(function () {
+      $('.dattabel').DataTable();
+      $('.datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        clearBtn: true,
+        autoclose: true,
+        todayHighlight: true
+      });
+      $('.select2').select2();    
+    });
+  </script>
+  <!-- =======================================================
+    Template Name: Surveilans
+    Template URL: https://templatemag.com/Surveilans-bootstrap-admin-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+    <title>SURVEILANS</title>
+</head>
+<body>
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="{{ url_for('index') }}" class="logo"><b>SURVEILANS</b></a>
+      <!--logo end-->
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='Surveilans/img/unjani.jpg') }}" class="img-circle" width="90"></a></p>
+          <h5 class="centered">SURVEILANS</h5>
+          <li class="mt">
+            <a href="{{ url_for('grafikkelurahan') }}">
+              <!-- <i class="fa fa-dashboard"></i> -->
+              <span>DASHBOARD</span>
+              </a>
+          </li>
+          <li class="sub-menu">
+              <a href="{{ url_for('datajumantik') }}">
+                <!-- <i class="fa fa-desktop"></i> -->
+                <span>DATA JUMANTIK</span>
+                </a>
+            </li>
+          <li class="sub-menu">
+            <a href="{{ url_for('datasurveikelurahan') }}">
+              <!-- <i class="fa fa-cogs"></i> -->
+              <span>DATA SURVEI</span>
+              </a>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+<script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="lib/advanced-datatable/js/DT_bootstrap.js"></script>
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row mt">
+                <div class="col-md-12">
+                  <div class="content-panel">
+                    <div class="adv-table">
+                      <div class="table-responsive">
+                      <table id='myTable' class='display dataTable' width='100%'>
+                      <h4><i class="fa fa-angle-right"></i> TABEL DATA SURVEI </h4>
+                      <a href="{{ url_for('cetak_data_survei') }}">
+                            <div class="text-right">
+                              <button class="btn btn-primary"> Cetak Data Survei </button>
+                            </a>
+                      <hr>
+                       <div class="form-group">
+                            <input type="search" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Cari Berdasarkan Desa" title="Type in a name" class="fa fa-angle-left">
+                          </div>
+                        <thead>
+                            <tr>
+                              <th scope="col">No</th>
+                              <th scope="col">Tanggal Survei</th>
+                              <th scope="col">Nama Jumantik</th>
+                              <th scope="col">Nomor Kartu Keluarga</th>
+                              <th scope="col">Nama Kepala Keluarga</th>
+                              <th scope="col">No Telp</th>
+                              <th scope="col">Dusun</th>
+                              <th scope="col">Desa</th>
+                              <th scope="col">Kecamatan</th>
+                              <th scope="col">Bak Mandi</th>
+                              <th scope="col">Drum</th>
+                              <th scope="col">Kaleng Bekas</th>
+                              <th scope="col">Tempayan</th>
+                              <th scope="col">Lain Lain</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">Jumlah TPA</th>
+                            </thead>
+                            {% for baris in container %}
+                            <tbody>
+                            <tr>
+                              <td>{{loop.index}}</td>
+                              <td>{{ baris[1] }}</td>
+                              <td>{{ baris[2] }}</td>
+                              <td>{{ baris[3] }}</td>
+                              <td>{{ baris[4] }}</td>
+                              <td>{{ baris[5] }}</td>
+                              <td>{{ baris[6] }}</td>
+                              <td>{{ baris[7] }}</td>
+                              <td>{{ baris[8] }}</td>
+                              <td>{{ baris[9] }}</td>
+                              <td>{{ baris[10] }}</td>
+                              <td>{{ baris[11] }}</td>
+                              <td>{{ baris[12] }}</td>
+                              <td>{{ baris[13] }}</td>
+                              <td>{{ baris[14] }}</td>
+                              <td>{{ baris[15] }}</td>
+                              <td>{{ baris[16] }}</td>
+                            </td>
+                            </tr>
+                            </tbody>
+                      {% endfor %}
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </section>
+            </section>
+            <!--main content end-->
+          </section>
+  {% include "footer_script.html" %}
+</body>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[7];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+</html>

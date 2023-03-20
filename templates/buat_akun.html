@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='staticlogin/theme.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ url_for('static', filename='staticlogin/jquery-ui.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ url_for('static', filename='staticlogin/jquery.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ url_for('static', filename='staticlogin/homeslider.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{url_for('static', filename='staticlogin/custom.css') }}" type="text/css" media="all">
+
+    <script type="text/javascript" src="{{url_for('static', filename='staticlogin/core.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='staticlogin/theme.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='staticlogin/eicaptcha-contact-form.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='staticlogin/jquery-ui.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='staticlogin/responsiveslides.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='staticlogin/homeslider.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='staticlogin/ps_searchbar.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='staticlogin/ps_shoppingcart.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='staticlogin/custom.js') }}"></script>
+    <title>Buat Akun</title>
+</head>
+
+<body id="contact" class="lang-en country-id currency-idr layout-left-column page-contact tax-display-disabled">
+    <main>
+        <aside id="notifications">
+            <div class="container"></div>
+        </aside>
+        
+        <section id="wrapper">
+            <div class="container">
+                <nav data-depth="1" class="breadcrumb hidden-sm-down">
+                    <ol itemscope="">
+                        <li itemprop="itemListElement" itemscope="" itemtype="">
+                            <a itemprop="item" href="">
+                                <span itemprop="name">Home</span>
+                            </a>
+                            <meta itemprop="position" content="1">
+                        </li>
+                    </ol>
+                </nav>
+                
+                <div id="content-wrapper">
+                    <section id="main">
+                        <header class="page-header">
+                            <h1><center>Buat Akun Baru</h1>
+                        </header>
+                        <section id="content" class="page-content card card-block">
+                            <section class="register-form">                  
+                                <form action="{{url_for('buat_akun')}}" method="post">
+                                    
+                                    <section>
+                                        <!--Nama-->
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label required">Nama</label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" name="nama" type="text" required>
+                                            </div>
+                                            <div class="col-md-3 form-control-comment"></div>
+                                        </div>
+                                        <!--Nomor Telepon-->
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label required">Nomor Telepon</label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" name="no_telp" type="text" required>
+                                            </div>
+                                            <div class="col-md-3 form-control-comment"></div>
+                                        </div>
+                                         <!--username-->
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label required">Username</label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" name="username" type="text" required placeholder="Contoh_username">
+                                            </div>
+                                            <div class="col-md-3 form-control-comment"></div>
+                                        </div>
+                    
+                                        <!--Password-->
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label required">Password</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group js-parent-focus">
+                                                    <input class="form-control js-child-focus js-visible-password" name="password" type="password"  required >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 form-control-comment"></div>
+                                        </div>
+                                         <!--Tanggal Lahir-->
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label">Tanggal Lahir</label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" name="tanggal_lahir" type="date" placeholder="" required>
+                                                <span class="form-control-comment"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label required">Kabupaten</label>
+                                            <div class="col-md-6">
+                                                <select type="id_kabupaten" name="id_kabupaten" class="form-control" id="id_kabupaten" required>
+                                                <option value=""></option>
+                                                <option value="1">Pati</option>
+                                                <option value="2">Kudus</option>
+                                                <option value="3">Wonosobo</option>
+                                                <option value="4">Rembang</option>
+                                            </select>
+                                            </div>
+                                            <div class="col-md-3 form-control-comment"></div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label required">Kecamatan</label>
+                                            <div class="col-md-6">
+                                                <select type="id_kecamatan" name="id_kecamatan" class="form-control" id="id_kecamatan" required>
+                                                <option value=""></option>
+                                                <option value="1">Gembong</option>
+                                                <option value="2">Juwana</option>
+                                                <option value="3">Kayen</option>
+                                                <option value="4">Pati</option>
+                                                <option value="5">Margoyoso</option>
+                                                <option value="6">Margorejo</option>
+                                            </select>
+                                            </div>
+                                            <div class="col-md-3 form-control-comment"></div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label required">Desa</label>
+                                            <div class="col-md-6">
+                                                <select type="id_desa" name="id_desa" class="form-control" id="id_desa" required>
+                                                <option value=""></option>
+                                                <option value="1">Bageng</option>
+                                                <option value="2">Bermi</option>
+                                                <option value="3">Gembong</option>
+                                                <option value="4">Kedungbulus</option>
+                                                <option value="5">Ketanggan</option>
+                                                <option value="6">Klakah Kasihan</option>
+                                                <option value="7">Plukaran</option>
+                                                <option value="8">Pohgading</option>
+                                                <option value="9">Semirejo</option>
+                                                <option value="10">Sitiluhur</option>
+                                                <option value="11">Wonosekar</option>
+                                            </select>
+                                            </div>
+                                            <div class="col-md-3 form-control-comment"></div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label required">Alamat Lengkap</label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" name="dusun" type="text" required placeholder="Dusun, Rt, Rw">
+                                            </div>
+                                            <div class="col-md-3 form-control-comment"></div>
+                                        </div>
+                                         <!--Tipe pengguna-->
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label">Tipe Pengguna</label>
+                                            <div class="col-md-6">
+                                                <select id="id_level" class="form-control" name="id_level" required>
+                                                <option value="1">Fasilitas Kesehatan</option>
+                                                <option value="2">Kelurahan</option>
+                                                <option value="3">Jumantik</option>
+                                                </select>
+                                                <span class="form-control-comment"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label required">Unit Kerja</label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" name="uker" type="text" required placeholder="Unit Kerja">
+                                            </div>
+                                            <div class="col-md-3 form-control-comment"></div>
+                                        </div>
+                                        <!--Jenis Kelamin-->
+                                        <div class="form-group row ">
+                                            <label class="col-md-3 form-control-label">Jenis Kelamin</label>
+                                            <div class="col-md-6 form-control-valign">
+                                                <label class="radio-inline">
+                                                    <span class="custom-radio">
+                                                        <input name="jenis_kelamin" type="radio" value="Laki-laki">
+                                                        <span></span>
+                                                    </span>
+                                                    Laki-laki
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <span class="custom-radio">
+                                                        <input name="jenis_kelamin" type="radio" value="Perempuan">
+                                                        <span></span>
+                                                    </span>
+                                                    Perempuan
+                                                </label>
+                                            </div>
+
+                                            <div class="col-md-3 form-control-comment"></div>
+                                        </div>
+                                        <input type="hidden" name="id_user">
+                                    </section>
+                                    <footer class="form-footer clearfix">
+                                        <input type="hidden" name="submitCreate" value="1">
+                                        <button class="btn btn-primary form-control-submit pull-xs-right" type="submit" >Save</button>
+                                        
+                                    </footer>
+                                </form>
+                            </section>
+                        </section>
+                        <footer class="page-footer"> 
+                            <!-- Footer content -->
+                        </footer>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

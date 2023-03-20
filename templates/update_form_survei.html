@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='Surveilans/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!--external css-->
+  <link href="{{ url_for('static', filename='Surveilans/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Surveilans/css/zabuto_calendar.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Surveilans/lib/gritter/css/jquery.gritter.css') }}" />
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='Surveilans/css/style.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='Surveilans/css/style-responsive.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='Surveilans/lib/chart-master/Chart.js') }}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+  <script>
+    $(document).ready(function () {
+      $('.dattabel').DataTable();
+      $('.datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        clearBtn: true,
+        autoclose: true,
+        todayHighlight: true
+      });
+      $('.select2').select2();    
+    });
+  </script>
+  <!-- =======================================================
+    Template Name: Surveilans
+    Template URL: https://templatemag.com/Surveilans-bootstrap-admin-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+    <title>SURVEILANS</title>
+</head>
+<body>
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="{{ url_for('index') }}" class="logo"><b>SURVEILANS</b></a>
+      <!--logo end-->
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='Surveilans/img/unjani.jpg') }}" class="img-circle" width="90"></a></p>
+          <h5 class="centered">SURVEILANS</h5>
+          <li class="sub-menu">
+            <a href="{{ url_for('data_survei_jumantik') }}">
+              <!-- <i class="fa fa-desktop"></i> -->
+              <span>DATA SURVEI</span>
+              </a>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+				<div class="row mt">
+					<div class="col-lg-12">
+						  <h4><i class="fa fa-angle-right"></i> Ubah Data Survei</h4>
+						  <div class="form-panel">
+							<div class=" form">
+							  <form class="cmxform form-horizontal style-form" id="commentForm" method="post" action="{{ url_for('update_prosess_survei') }}">
+							  	<input type="hidden" name="no" class="form-control" id="no" placeholder="no" value="{{ data[0] }}" size="30" maxlength="50" />
+							  	<input type="hidden" name="tanggal_survei" class="form-control" id="tanggal_survei" placeholder="Id Jumantik" value="{{ data[1] }}" size="30" maxlength="50"  />
+							  	
+							  	<div class="form-group ">
+								  <label for="id_jumantik" class="control-label col-lg-2">ID Jumantik</label>
+								  <div class="col-lg-10">
+									<input class="form-control " id="id_jumantik" for="no_ktp" type="text" name="id_jumantik" value="{{ data[2] }}" placeholder="Masukan ID Jumantik" required/>
+								  </div>
+								</div>
+								<div class="form-group ">
+									<label for="no_kk" class="control-label col-lg-2">Nomor KK</label>
+									<div class="col-lg-10">
+									  <input class="form-control " id="no_kk" type="text" name="no_kk" required value="{{ data[3] }}" placeholder="Masukan Nomor KK" />
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="nama_kepala_keluarga" class="control-label col-lg-2">Nama Kepala Keluarga</label>
+									<div class="col-lg-10">
+									  <input class="form-control " id="nama_kepala_keluarga" type="text" required name="nama_kepala_keluarga" value="{{ data[4] }}" placeholder="Masukan Nama Kepala Keluarga" />
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="no_telp" class="control-label col-lg-2">No Telpon</label>
+									<div class="col-lg-10">
+									  <input class="form-control " id="no_telp" type="text" name="no_telp" required value="{{ data[5] }}" placeholder="Masukan Nomor Telepon" />
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="dusun" class="control-label col-lg-2">Alamat</label>
+									<div class="col-lg-10">
+									  <textarea type="dusun" name="dusun" class="md-textarea form-control" id="dusun" value="{{ data[6] }}"placeholder="Dusun, Rt, Rw" rows="2" required ></textarea>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="id_desa" class="control-label col-lg-2">Desa</label>
+									<div class="col-lg-10">
+									<select type="id_desa" name="id_desa" class="form-control" required id="id_desa">
+										<option value=""></option>
+										<option value="1">Bageng</option>
+										<option value="2">Bermi</option>
+										<option value="3">Gembong</option>
+										<option value="4">Kedungbulus</option>
+										<option value="5">Ketanggan</option>
+										<option value="6">Klakah Kasihan</option>
+										<option value="7">Plukaran</option>
+										<option value="8">Pohgading</option>
+										<option value="9">Semirejo</option>
+										<option value="10">Sitiluhur</option>
+										<option value="11">Wonosekar</option value="{{ data[7] }}">
+									</select>
+								</div>
+								</div>
+								<div class="form-group ">
+									<label for="id_kecamatan" class="control-label col-lg-2">Kecamatan</label>
+									<div class="col-lg-10">
+									<select type="id_kecamatan" name="id_kecamatan" class="form-control" required id="id_kecamatan">
+										<option value=""></option>
+										<option value="1">Gembong</option>
+										<option value="2">Juwana</option>
+										<option value="3">Kayen</option>
+										<option value="4">Pati</option>
+										<option value="5">Margoyoso</option>
+										<option value="6">Margorejo</option value="{{ data[8] }}">
+									</select>
+								</div>
+								</div>
+
+								<div class="form-group ">
+									<label for="bak_mandi" class="control-label col-lg-2">Bak Mandi</label>
+									<div class="col-lg-10">
+									  <select type="bak_mandi" name="bak_mandi" class="form-control" required id="bak_mandi">
+									  	<option value=""></option>
+										<option >Negatif</option>
+										<option >Positif</option value="{{ data[9] }}">
+										</select>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="drum" class="control-label col-lg-2">Drum</label>
+									<div class="col-lg-10">
+									  <select type="drum" name="drum" class="form-control" id="drum">
+									  	<option></option>
+										<option>Negatif</option>
+										<option>Positif</option value="{{ data[10] }}">
+										</select>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="kaleng_bekas" class="control-label col-lg-2">Kaleng Bekas</label>
+									<div class="col-lg-10">
+									  <select type="kaleng_bekas" name="kaleng_bekas" class="form-control" required id="kaleng_bekas">
+									  	<option></option>
+										<option>Negatif</option>
+										<option>Positif</option value="{{ data[11] }}">
+										</select>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="tempayan" class="control-label col-lg-2">Tempayan</label>
+									<div class="col-lg-10">
+									  <select type="tempayan" name="tempayan" class="form-control" required id="tempayan">
+									  	<option></option>
+										<option>Negatif</option>
+										<option>Positif</option value="{{ data[12] }}">
+										</select>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="lain_lain" class="control-label col-lg-2"> Lain Lain</label>
+									<div class="col-lg-10">
+									  <input class="form-control " id="lain_lain" type="text" name="lain_lain" required value="{{ data[13] }}" placeholder="Tempat Penampungan Air Lain" />
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="status" class="control-label col-lg-2">Status</label>
+									<div class="col-lg-10">
+									  <select type="status" name="status" class="form-control" required id="status">
+									  	<option></option>
+										<option>Negatif</option>
+										<option>Positif</option value="{{ data[14] }}">
+										</select>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="jumlah_tpa" class="control-label col-lg-2"> Jumlah TPA</label>
+									<div class="col-lg-10">
+									  <input class="form-control " id="jumlah_tpa" type="text" required name="jumlah_tpa" value="{{ data[15] }}" placeholder="Jumlah Tempat Penampungan Air" />
+									</div>
+								</div>
+
+								<div class="form-group">
+				                  <div class="col-lg-offset-2 col-lg-10">
+				                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Save</button>
+				                  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+				                    <div class="modal-dialog" role="document">
+				                      <div class="modal-content">
+				                        <div class="modal-header">
+				                          <h5 class="modal-title" id="exampleModalLongTitle">Data Disimpan</h5>
+				                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				                            <span aria-hidden="true">&times;</span>
+				                          </button>
+				                        </div>
+				                        <div class="modal-body">Data Berhasil Disimpan
+				                        </div>
+				                        <div class="modal-footer">
+				                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				                          <button type="submit" class="btn btn-primary">Oke</button>
+				                        </div>
+				                      </div>
+				                    </div>
+				                  </div>
+							  </form>
+							</div>
+						  </div>
+						  <!-- /form-panel -->
+						</div>
+						<!-- /col-lg-12 -->
+					  </div>			  
+        </section>
+    </section>
+    <!--main content end-->
+  </section>
+  {% include "footer_script.html" %}
+</body>
+</html>
