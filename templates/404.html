@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Selamat Datang</title>
+	<link href="static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="static/css/font-awesome.min.css" rel="stylesheet">
+	<link href="static/css/datepicker3.css" rel="stylesheet">
+	<link href="static/css/styles.css" rel="stylesheet">
+
+	<!--Custom Font-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-datepicker.css') }}">
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+<script>
+  $(document).ready(function () {
+    $('.dattabel').DataTable();
+    $('.datepicker').datepicker({
+      format: "yyyy-mm-dd",
+      clearBtn: true,
+      autoclose: true,
+      todayHighlight: true
+    });
+    $('.select2').select2();    
+  });
+</script>
+</head>
+<body>
+<div class="row">
+			<div class="col-lg-6 col-lg-offset-3">
+				<div class="error-page text-center">
+					<h1>Error 404</h1>
+					<h3>Page Not Found</h3>
+					<p>The page you requested could not be found. Use your browsers Back button to navigate to the page or use the search form to find what you are looking for.</p>
+					<form>
+						<div class="input-group input-group-lg">
+							<input type="text" placeholder="Search" class="form-control">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default" tabindex="-1">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+						</div>
+					</form>
+					<br/>
+					<a href="{{ url_for('logout') }}" class="btn btn-lg btn-primary">Return to previous page</a>
+				</div>
+			</div><!-- /.col-->
+		</div><!-- /.row -->
+<script src="static/js/jquery-1.11.1.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/chart.min.js"></script>
+<script src="static/js/chart-data.js"></script>
+<script src="static/js/easypiechart.js"></script>
+<script src="static/js/easypiechart-data.js"></script>
+<script src="static/js/bootstrap-datepicker.js"></script>
+<script src="static/js/custom.js"></script>
+<script>
+	window.onload = function () {
+	var chart1 = document.getElementById("line-chart").getContext("2d");
+	window.myLine = new Chart(chart1).Line(lineChartData, {
+	responsive: true,
+	scaleLineColor: "rgba(0,0,0,.2)",
+	scaleGridLineColor: "rgba(0,0,0,.05)",
+	scaleFontColor: "#c5c7cc"
+	});
+	};
+</script>
+</body>
+</html>
