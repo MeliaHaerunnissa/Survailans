@@ -1,2 +1,2 @@
 # Survailans
-Sistem Informasi Survailans Demam Berdarah, Gembong Kabupaten Pati
+Sistem Informasi Survailans Demam Berdarah, Python Flask
